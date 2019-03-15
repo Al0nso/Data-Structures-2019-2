@@ -4,29 +4,29 @@ package Clase3;
  * Exercise about Structures
  * @author Medina Amayo D. Alonso
  * @autor: Claudia Osorio
- * @version 1.0
- * @date  06/02/2019
+ * @version 2.0
+ * @date  11/02/2019
  */
 
-public class Par {
+public class Par<T> {
 
 	/**Attributes */
-	private Object x;
-	private Object y;
+	private T x;
+	private T y;
 
-	public Object getX (){
+	public T getX (){
 		return this.x;
 	}
 
-	public Object getY (){
+	public T getY (){
 		return this.y;
 	}
 
-	public void setX (Object x){
+	public void setX (T x){
 		x = this.x;
 	}
 
-	public void setY (Object y){
+	public void setY (T y){
 		y = this.y;
         }
 
