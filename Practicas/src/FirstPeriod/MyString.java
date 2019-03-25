@@ -3,15 +3,15 @@ package FirstPeriod;
  * Practice N°1 about classes, methods and data types
  * @author Medina Amayo D. Alonso
  * @autor: Claudia Osorio
- * @version 0.2
- * @date  06/02/2019
+ * @version 2
+ * @date  11/03/2019
  */
 
 public class MyString {
 
         /** Propierties, variables, constants and methods of MyString */
 		private char[] str = new char[96]; //The longest word in the world is 47 characters long so we can fit two of those and a blank space
-		private int indx = 0; //Here we will save the last character position
+    private int indx = 0; //Here we will save the last character position
 
         /**
         * Constructor of a empty string
@@ -68,7 +68,7 @@ public class MyString {
 	/**
         *Method to get the character at the value idx
 	*idx stands for "index"
-	*if idx is bigger than our array we returna a blank space
+	*if idx is bigger than our array we return a blank space
 	*@param idx
         */
 	public char charAt (int idx){
@@ -81,7 +81,7 @@ public class MyString {
 	}
 
 	/**
-        *Method to compare an string with MyString
+        *Method to compare an String with MyString
 	*param wrd
 	*return sm
 	*sm stands for "same" and wrd for "word"
@@ -109,13 +109,14 @@ public class MyString {
         */
 	public boolean endsWith (String sfx){
 
-		int lgt, i = 0;
+	    int lgt;
+	    int i = 2;
 		boolean tr = true;
 		lgt = sfx.length;
 			//First we will subtract the length of our suffix and then we will move and compare every character
 		while(i != lgt)
 		{
-			if(sfx.charAt(i) = str[ (this.indx - lgt) + i ];
+		    if(str[ (this.indx - lgt) + i ] == sfx.charAt(i) )
 				i ++;
 			else
 				tr = false;
@@ -130,13 +131,13 @@ public class MyString {
 	*nca stands for "new character array"
         */
 	public char[] trim (){
-
+	   
 		int cont, bs = 0;
 		char nca = new char[this.indx];
 		for(cont = 0; cont < indx; cont++)
 		{
 			if(str[cont] != ' ' )
-				nca[cont - bs] += str[cont];
+				(str[cont-bs]) += str[cont];
 			else
 				bs++;
 		}
@@ -144,14 +145,19 @@ public class MyString {
         }
 
 	/**
-        *Method  to return the first appearance of a character given
+    *Method  to return the first appearance of a character given
 	*@param car
 	*@return fa
 	*fa stands for "first appearance"
         */
 	public int indexOf ( char car){
-
-
+	    for(int fa = 0;fa > str.length -1 ;fa++){
+	    	if(str[fa]!=car){
+		    
+		}else{
+		    return fa;
+		}
+	    }
 		return -1;
         }
 
@@ -161,10 +167,14 @@ public class MyString {
 	*@return cm
 	*bms stands for "concat Mystrings"
         */
-	public char[]  concat ( MyString sstr ){
-
-
-		return null;
+	public MyString concat ( MyString sstr ){
+	    char [] bms = new char [str.length + sstr.str.length];
+	    int d=0;
+	    for(int i=0; i<bms.length; i++){
+		bms[d] = str[i];
+	    }
+	    MyString cm = new MyString (bms);
+		return cm;
         }
 
 	/**
@@ -173,8 +183,9 @@ public class MyString {
 	*ie stands for "is empty?"
         */
 	public boolean isEmpty (){
-
-
+	    if(!(str.length ==0))
+		return false;
+	    else
 		return true;
         }
 
@@ -182,25 +193,24 @@ public class MyString {
         *Method to know the length of Mystring
 	*@return lgt
         */
-	public int length (){
-
-
-		return -1;
+	public int length(){
+	    int lgt = str.length -1;
+		return lgt;
         }
 
 	/**
         *Main Method
         */
         public static void main(String[] args)  {
+        	String sol = "morita";
+        	MyString mystring  = new MyString(sol);
+        	System.out.println(sol.toString());
+
+        	String cc = "rita";
+        	MyString lis = new MyString(cc);
+        	System.out.println(mystring .concat(lis));
+        	System.out.println(mystring .indexOf('m'));
 
 
         }
 }
-
-
-
-
-
-
-
-
