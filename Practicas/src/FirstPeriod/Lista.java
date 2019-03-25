@@ -1,4 +1,4 @@
- 	package FirstPeriod;
+package FirstPeriod;
 
  /**
  * Practice NB02 about linked list and Iterators
@@ -42,7 +42,7 @@ public class Lista < T > implements Iterable < T >
                 //{
                         int i;
                         Nodo n1 = new Nodo (arreglo[0]);
-                        this.cabeza = n1;
+                        this.ultimo = n1;
                         n1.anterior = null;
                         for ( i = 1; i < arreglo.length; i++) //i starts from 1 because we already used the first element of T on the head
                                 agregaFinal (arreglo[i]); //THIS ERROR <- ?
@@ -155,23 +155,30 @@ public class Lista < T > implements Iterable < T >
         *Method to delete the first element of the list and return it one last time
         *@return elemnt
         */
-	public T eliminaPrimero ()
-	{
+	public T eliminaPrimero (){
 		T elemnt;
-		if (this.cabeza != null)
-		{
+		try{
+			if (this.cabeza != null){
 			elemnt = cabeza.elemento;
-			this.cabeza = cabeza.siguiente;
-			this.cabeza.anterior = null;
+			this.cabeza = null;  //this.cabeza = cabeza.siguiente;
+			this.cabeza.siguiente = this.cabeza;	//this.cabeza.anterior = null;
 			if (this.longitud == 1)
 				ultimo = null;
 			else
 				this.longitud--;
 			return elemnt;
-		}
-		else
+		} else{
+
 			return null;
+		}
+		}
+		catch(NoSuchElementException e){
+	        System.out.println("Void list");
+	        throw e; // rethrowing the exception
+	    }
 	}
+
+	
 
 	 /**
          *Method to delete the last element of the list
@@ -179,20 +186,28 @@ public class Lista < T > implements Iterable < T >
          */
 	public T eliminaUltimo ()
 	{
+		try{
+
 		T elemnt;
 		if (this.cabeza != null)
 		{
 			elemnt = ultimo.elemento;
-			this.ultimo = ultimo.anterior;
-			this.ultimo.siguiente = null;
-			if (this.longitud == 1)
+			this.ultimo = null; //this.ultimo = ultimo.anterior
+			this.ultimo.anterior = this.ultimo; //this.ultimo.siguiente = null;
+			if (this.longitud ==x 1)
 				this.ultimo = null; //Puse this. para ver si compilaba 20.03.19 11.45am
 			else
 				this.longitud--;
 			return elemnt;
+		}else{
+			return null;   
 		}
-		else
-		    return null;
+
+	} catch(NoSuchElementException e)
+	        {
+	            System.out.println("Void list");
+	            throw e; // rethrowing the exception
+	        }
 	}
 
 	 /**
@@ -205,6 +220,7 @@ public class Lista < T > implements Iterable < T >
 		this.cabeza.anterior = n1;
 		this.cabeza = n1;
 		n1.anterior = null;
+		this.longitud++;
 	}
 
 	 /**
@@ -218,6 +234,7 @@ public class Lista < T > implements Iterable < T >
 		this.ultimo.siguiente = n1; //This error?
 		n1.anterior = this.ultimo;
 		this.ultimo = n1;
+		this.longitud++;
 	}
 
 	 /**
@@ -288,6 +305,7 @@ public class Lista < T > implements Iterable < T >
 	public void limpia ()
 	{
 		this.cabeza = this.ultimo = null;
+		this.longitud=0;
 	}
 
 	 /**
@@ -478,6 +496,7 @@ public class Lista < T > implements Iterable < T >
 		for (cont = 0; cont < prueba.length && cont < args.length; cont++)
 			prueba[cont] = args[cont];
 		Lista l1 = new Lista (prueba); //THIS ERROR?
+		System.out.println("Algo anda mal.jpg");
 	 }
 
 }
