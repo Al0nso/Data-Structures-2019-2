@@ -38,20 +38,20 @@ public class Lista < T > implements Iterable < T >
          */
         public Lista (T[] arreglo)
         {
-               // try
-                //{
-                        int i;
-                        Nodo n1 = new Nodo (arreglo[0]);
-                        this.ultimo = n1;
-                        n1.anterior = null;
-                        for ( i = 1; i < arreglo.length; i++) //i starts from 1 because we already used the first element of T on the head
-                                agregaFinal (arreglo[i]); //THIS ERROR <- ?
-                        this.longitud = i;
-                //}
-                //catch(Exception e)
-               // {
-                 //       System.out.println(":( " + e);
-                //}
+     // try
+     //{
+        int i;
+        Nodo n1 = new Nodo (arreglo[0]);
+        this.ultimo = n1;
+        n1.anterior = null;
+        for ( i = 1; i < arreglo.length; i++) //i starts from 1 because we already used the first element of T on the head
+        agregaFinal (arreglo[i]); //THIS ERROR <- ?
+        this.longitud = i;
+     //}
+     //catch(Exception e)
+     // {
+     //       System.out.println(":( " + e);
+     //}
         }
 
 	 // Listas' class to representate nodes
@@ -194,8 +194,8 @@ public class Lista < T > implements Iterable < T >
 			elemnt = ultimo.elemento;
 			this.ultimo = null; //this.ultimo = ultimo.anterior
 			this.ultimo.anterior = this.ultimo; //this.ultimo.siguiente = null;
-			if (this.longitud ==x 1)
-				this.ultimo = null; //Puse this. para ver si compilaba 20.03.19 11.45am
+			if (this.longitud == 1)
+				this.ultimo = null; //I put this. para ver si compilaba 20.03.19 11.45am
 			else
 				this.longitud--;
 			return elemnt;
@@ -232,7 +232,7 @@ public class Lista < T > implements Iterable < T >
 		Nodo n1 = new Nodo (t);
 		n1.siguiente = null;
 		this.ultimo.siguiente = n1; //This error?
-		n1.anterior = this.ultimo;
+		//n1.anterior = this.ultimo;
 		this.ultimo = n1;
 		this.longitud++;
 	}
@@ -474,15 +474,15 @@ public class Lista < T > implements Iterable < T >
 	public int getindiceElemento (T t)
 	{
 		Nodo n1 = new Nodo();
-                n1 = this.cabeza;
-                int cont;
-                if( contiene( t ) )
-                        for(cont = 1; cont <= getLongitud(); cont ++)
-                        {
-                                if(n1.elemento == t)
-                                        return cont;
-                                n1 = n1.siguiente;
-                        }
+            n1 = this.cabeza;
+            int cont;
+            if( contiene( t ) )
+                for(cont = 1; cont <= getLongitud(); cont ++)
+                {
+                if(n1.elemento == t)
+                return cont;
+                n1 = n1.siguiente;
+                }
 		return -1;	
 	}
 

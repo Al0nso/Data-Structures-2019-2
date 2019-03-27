@@ -1,5 +1,11 @@
 package Practica3;
-
+/**
+*Practica N.3 sobre Pilas y Colas
+*@author Claudia Osorio
+*@author Alonso Amayo
+*@version 2
+*@date 27.03.19
+*/
 import java.util.NoSuchElementException;
 import java.util.Iterator;
 
@@ -8,31 +14,58 @@ import java.util.Iterator;
  */
 public class Cola<T> implements Iterable<T>{
 
+	//Atributos de la lista
     private Nodo cabeza;
-     private Nodo ultimo;
-     private int longitud;
+    private Nodo ultimo;
+    private int longitud;
 
     /**
      *constructor that initializes the queue
      *@param n 
      *we put -1 to indicate that the queue is empty
      */  
-    public Cola(){
+    public Cola(int n){
         cabeza = null;
         ultimo = null;
-        longitud = 0;
+        longitud = -1;
 	   }
     
-    public Cola(Lista<T> l){
-         Iterador ite = (Iterador)l.iterator();
-         Iterador rad = (Iterador)iterator();
-         while(ite.hasNext()){
+    // Listas'class to representate nodes
+	private class Nodo
+	{
+	/**Attributes of the node */
+		public T elemento;
+		public Nodo siguiente;
+		public Nodo anterior;
 
-         }
+		public Nodo (T elemento)
+		{
+			this.elemento = elemento;
+		}
+
+		/**Empty constructor */
+		public Nodo ()
+        {
+        }		
+	}
+
+	//Constructor con listas
+    public Cola(Lista<T> l){
+	//only nothing yet
+    	T n = new l();
     }
     
+
+    //Constructor con arreglos
     public Cola(T[] arreglo){
-	//Aquí va su código.
+	int i;
+	Nodo n1 = new Nodo (arreglo[0]);
+	this.ultimo = n1;
+	n1.anterior = null;
+	for ( i = 1; i < arreglo.length; i++)
+        mete(arreglo[i]);
+        this.longitud = i;
+
     }
 
 
@@ -41,7 +74,7 @@ public class Cola<T> implements Iterable<T>{
     *@return True o False
     **/
     public boolean esVacia(){
-        return head == null;
+        return cabeza == null; //Check
     }
 
     /**
@@ -50,6 +83,7 @@ public class Cola<T> implements Iterable<T>{
     */
     public T mira(){
         if(esVacia()){
+        	System.out.println("No hay nada aquí");
         }
         return cabeza.elemento;
     }
@@ -59,9 +93,9 @@ public class Cola<T> implements Iterable<T>{
     *@return T
     */
     public T saca(){
-	T pop = cabeza.elemento;
+	T n1 = cabeza.elemento;
     cabeza.siguiente = cabeza;
-    return pop;
+    return n1;
     }
 
     /**
@@ -69,50 +103,74 @@ public class Cola<T> implements Iterable<T>{
     *@param T 
     */
     public void mete(T t){
-	if(t == null){
-       throw new IllegalArgumentException(); // Elemento nulo
+	Nodo n1 = new Nodo (t);
+	n1.siguiente = null;
+	this.ultimo.siguiente = n1;
+	this.ultimo=n1;
+	this.longitud++;
+	}
+
+
+	/**
+	*Este método convierte la cola en un String que separa con ', '
+	*Sí es vacía entonces se devuelve []
+	*/
+	@Override
+    public String toString(){
+	String lst = "";
+		Nodo n1 = this.cabeza;
+		int cont;
+		if (!(this.cabeza == this.ultimo && this.ultimo == null))
+		{				//Two '&&' cause if the head doesn't point to the tail we have nothing to do
+			for (cont = 0; cont < (this.longitud - 1); cont++)
+			{
+				lst += n1.elemento.toString () + ", ";
+				n1 = n1.siguiente;
+			}
+			lst += n1.siguiente;
+		}
+		
+			return "[]";
     }
+
+
+    /**
+    * Método para verificar si dos objetos son iguales, este caso será si dos colas son la misma
+    *@return eqls
+    */
+    @Override
+    public boolean equals(Object o){
+	Nodo n1 = this.cabeza;
+		boolean eqls = true;	//eqls stands for equals
+		if (o.getClass() == this.getClass())
+		{				//Here we compare the class of our list and ob
+			Cola lob = (Cola)o;
+			Nodo n2 = lob.cabeza;	//If ob is a list we create the List l1 and then the node n2 wich is the head of ob
+			while (eqls)
+			{			//Here we will compare every item of both list
+				if (n1.elemento.equals (n2.elemento) == false)
+					eqls = false;
+				else
+				{
+					if (n1.siguiente != null && n2.siguiente != null)
+					{
+						n1 = n1.siguiente;
+						n2 = n2.siguiente;
+					}
+					else
+						return eqls;
+				}
+			}
+		}
+		return eqls;
     }
 
     /**
-    *@return String 
-    *
+    *Método para implementar un iterador que ya usamos antes
     */
     @Override
-    public String toString(){
-	String strr = " ";
-    Nodo left;
-    for(left= cabeza; left!=null; left= left.getSiguiente){
-        strr= strr + left.getElemento();
-    if(left.getSiguiente()!=null){
-                    str = str + ", ";
-    }
-    }
-            str = str + "]";
-            return str;
-}
-
-    @Override
-    public boolean equals(Object o){
-         if (o == null || getClass() != o.getClass()){
-          return false;
-        }
-        @SuppressWarnings("unchecked") Cola<T> cola = (Cola<T>)objeto;
-       if(getLongitud() != cola.getLongitud())
-            return false;
-        Nodo his = cabeza;
-        Nodo mos = cola.cabeza;
-        while(his != null && mos != null){
-          if(!(his.elemento.equals(mos.elemento)))
-            return false;
-          his = his.siguiente;
-          mos = mos.siguiente;
-            }
-          return true;
-    }
-
-    @Override
     public Iterator<T> iterator(){
-        return wen Iterador();
+	Iterator<T> I1 = new Iterador();
+		return I1;
     }
 }
