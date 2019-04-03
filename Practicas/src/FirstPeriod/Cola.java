@@ -1,10 +1,10 @@
-package Practica3;
+package FirstPeriod;
 /**
 *Practica N.3 sobre Pilas y Colas
 *@author Claudia Osorio
 *@author Alonso Amayo
 *@version 2
-*@date 27.03.19
+*@date 03.04.19
 */
 import java.util.NoSuchElementException;
 import java.util.Iterator;
@@ -30,6 +30,19 @@ public class Cola<T> implements Iterable<T>{
         longitud = -1;
 	   }
     
+
+    private class Lista{
+    //Atributos de la lista
+     public T elemento;
+     public Nodo cabeza;
+     public Nodo ultimo;
+     public int longitud;
+    
+      public Lista(T elemento){
+        this.elemento = elemento; 
+      }
+    }
+
     // Listas'class to representate nodes
 	private class Nodo
 	{
@@ -51,13 +64,13 @@ public class Cola<T> implements Iterable<T>{
 
 	//Constructor con listas
     public Cola(Lista<T> l){
-  //  	int i; 
-    //	Nodo n1 = new Nodo(l(0));
-    //	this.ultimo = n1;
-    //	n1.anterior = null;
-    //	for(i= 1; i < l.length; i++)
-    //		mete(l(i));
-    //	this.longitud=i;
+     	int i; 
+    	Nodo n1 = new Nodo(l);
+    	this.cabeza = n1;
+    	n1.anterior = null;
+    	for(i= 1; i < l.length; i++)
+    		mete( l.get( i )  );
+    	this.longitud=i;
     }
     
 
@@ -65,7 +78,7 @@ public class Cola<T> implements Iterable<T>{
     public Cola(T[] arreglo){
 	int i;
 	Nodo n1 = new Nodo (arreglo[0]);
-	this.ultimo = n1;
+	this.cabeza = n1;
 	n1.anterior = null;
 	for ( i = 1; i < arreglo.length; i++)
         mete(arreglo[i]);
@@ -149,7 +162,7 @@ public class Cola<T> implements Iterable<T>{
 		boolean eqls = true;	//eqls stands for equals
 		if (o.getClass() == this.getClass())
 		{				//Here we compare the class of our list and ob
-			Cola lob = (Cola)o;
+			Cola<T> lob = new Cola<T>(o);
 			Nodo n2 = lob.cabeza;	//If ob is a list we create the List l1 and then the node n2 wich is the head of ob
 			while (eqls)
 			{			//Here we will compare every item of both list
@@ -173,9 +186,20 @@ public class Cola<T> implements Iterable<T>{
     /**
     *Método para implementar un iterador que ya usamos antes
     */
-    @Override
-    public Iterator<T> iterator(){
+    @Override public Iterator<T> iterator(){
 	Iterator<T> I1 = new Iterador();
 		return I1;
     }
+
+    /**
+     *Main method
+     */
+    public static void main (String[] args){     
+        String[] prueba = new String[10];
+        int cont;
+        for (cont = 0; cont < prueba.length && cont < args.length; cont++)
+            prueba[cont] = args[cont];
+        Cola<T> l1 = new Cola<T> (prueba); //THIS ERROR?
+        System.out.println();
+     }
 }

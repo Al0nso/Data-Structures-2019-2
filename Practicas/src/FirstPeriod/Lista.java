@@ -5,7 +5,7 @@ package FirstPeriod;
  * @author: Claudia Osorio
  * @author Medina Amayo D. Alonso
  * @version 1
- * @date  17/03/2019
+ * @date  03/04/2019
  */
 
 import java.util.Iterator;
@@ -86,7 +86,7 @@ public class Lista < T > implements Iterable < T >
 		public Iterador ()
 		{
 		}
-
+}
 		 /**
 		 *Method to know if the list have next node
 	 	 *@return true/false

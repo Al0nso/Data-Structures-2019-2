@@ -1,13 +1,13 @@
 import java.util.EmptyStackException;
 import java.util.Iterator;
-
+package FirstPeriod;
 /**
  * Implementación de pilas.
  * Practice N°3 about Queues, list in sudokus
  * @author Medina Amayo D. Alonso
  * @author Osorio López Claudia Y.
  * @version 1
- * @date  16/03/2019
+ * @date  03/04/2019
  */
 public class Pila<T> implements Iterable<T>{
 
