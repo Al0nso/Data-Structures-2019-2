@@ -496,7 +496,7 @@ public class Lista < T > implements Iterable < T >
 		for (cont = 0; cont < prueba.length && cont < args.length; cont++)
 			prueba[cont] = args[cont];
 		Lista l1 = new Lista (prueba); //THIS ERROR?
-		System.out.println("Algo anda mal.jpg");
+		System.out.println();
 	 }
 
 }

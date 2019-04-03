@@ -51,8 +51,13 @@ public class Cola<T> implements Iterable<T>{
 
 	//Constructor con listas
     public Cola(Lista<T> l){
-	//only nothing yet
-    	T n = new l();
+  //  	int i; 
+    //	Nodo n1 = new Nodo(l(0));
+    //	this.ultimo = n1;
+    //	n1.anterior = null;
+    //	for(i= 1; i < l.length; i++)
+    //		mete(l(i));
+    //	this.longitud=i;
     }
     
 

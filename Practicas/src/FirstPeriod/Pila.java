@@ -11,28 +11,43 @@ import java.util.Iterator;
  */
 public class Pila<T> implements Iterable<T>{
 
-     private int[] acomodo;
-     private int primero;
-     private int ultimo;
-    /**
-     *constructor that initializes the queue
-     *@param n 
-     *we put -1 to indicate that the queue is empty
-     */
-    public Pila(int n){
-       for(int i=0; i<n; i++)
-       acomodo[i] = -1;
-    }
-    }
-    
-    public Pila(Lista<T> l){
-	//Aquí va su código.
+    //Atributos de la pila
+    private Nodo cabeza;
+    private Nodo ultimo;
+    private int longitud;
+
+    private class Nodo{
+
+        /**Attributes of the node */
+        public T elemento;
+        public Nodo siguiente;
+        public Nodo anterior;
+
+        public Nodo (T elemento){
+            this.elemento = elemento;}
+
+        /**Empty constructor */
+        public Nodo (){}       
     }
 
-    public Pila(T[] arreglo){
-        this.primero=0;
-        this.ultimo=0;
+   //Constructor que inicializa la pila
+    public Pila(){
+    }
+    
+    
+  //  public Pila(Lista<T> l){
 	//Aquí va su código.
+    //}
+
+
+    public Pila(T[] arreglo){
+        int i;
+        Nodo n1 = new Nodo (arreglo[0]);
+        this.ultimo = n1;
+        n1.anterior = null;
+        for ( i = 1; i < arreglo.length; i++)
+        mete (arreglo[i]); 
+        this.longitud = i;
     }
 
     public boolean esVacia(){
