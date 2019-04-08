@@ -45,7 +45,7 @@ public class Lista < T > implements Iterable < T >
         this.ultimo = n1;
         n1.anterior = null;
         for ( i = 1; i < arreglo.length; i++) //i starts from 1 because we already used the first element of T on the head
-        agregaFinal (arreglo[i]); //THIS ERROR <- ?
+        agregaFinal (arreglo[i]); //THIS ERROR
         this.longitud = i;
      //}
      //catch(Exception e)
@@ -228,13 +228,19 @@ public class Lista < T > implements Iterable < T >
          */
 	public void agregaFinal (T t)
 	{
-		
-		Nodo n1 = new Nodo (t);
-		n1.siguiente = null;
-		this.ultimo.siguiente = n1; //This error?
-		//n1.anterior = this.ultimo;
-		this.ultimo = n1;
+		 if(t == null){
+        throw new NoSuchElementException  (); //THIS ERROR
+      }
+      Nodo n1 = new Nodo (t);
+        if(esVacia()){
+        cabeza = ultimo = n1;
+        }else{
+           n1.siguiente = null;
+		this.ultimo.siguiente = n1;
+		n1.anterior = this.ultimo;
+		//this.ultimo = n1;
 		this.longitud++;
+            }
 	}
 
 	 /**
@@ -256,6 +262,15 @@ public class Lista < T > implements Iterable < T >
 		}
 		return ctn;
 	  }
+
+
+/***Método para saber si es esVacia
+ **@return boolean: true si es vacía y false en caso contrario
+ **/
+   public boolean esVacia(){
+     return cabeza == null;
+   }
+
 
 	 /**
          *Method to return the long of the list
@@ -378,7 +393,7 @@ public class Lista < T > implements Iterable < T >
 	public Lista < T > reversa ()
 	{
 
-		Lista l1 = new Lista ();
+		Lista <T> l1 = new Lista <T> ();
 		Nodo n1 = this.ultimo;
 		int cont;//Counter
 		Nodo n2 = l1.cabeza;
@@ -395,7 +410,7 @@ public class Lista < T > implements Iterable < T >
 	public Lista < T > copia ()
 	{
 		int cont;//Counter
-		Lista l1 = new Lista ();
+		Lista <T> l1 = new Lista <T> ();
 		Nodo n1 = this.cabeza;
 		Nodo n2 = l1.cabeza;
 		n2 = n1;
@@ -432,32 +447,26 @@ public class Lista < T > implements Iterable < T >
 	*Method to check if two objects are the same, this case will be if two list are the same node by node
 	*@return eqls
 	*/
-	@Override public boolean equals (Object ob)
+	@Override public boolean equals (Object objeto)
 	{
-		Nodo n1 = this.cabeza;
-		boolean eqls = true;	//eqls stands for equals
-		if (ob.getClass() == this.getClass())
-		{				//Here we compare the class of our list and ob
-			Lista lob = (Lista)ob;
-			Nodo n2 = lob.cabeza;	//If ob is a list we create the List l1 and then the node n2 wich is the head of ob
-			while (eqls)
-			{			//Here we will compare every item of both list
-				if (n1.elemento.equals (n2.elemento) == false)
-					eqls = false;
-				else
-				{
-					if (n1.siguiente != null && n2.siguiente != null)
-					{
-						n1 = n1.siguiente;
-						n2 = n2.siguiente;
-					}
-					else
-						return eqls;
-				}
-			}
-		}
-		return eqls;
+	if (objeto == null || getClass() != objeto.getClass()){
+          return false;
+        }
+        @SuppressWarnings("unchecked") Lista<T> lista = (Lista<T>)objeto;
+       if(getLongitud() != lista.getLongitud())
+            return false;
+        Nodo esta = cabeza;
+        Nodo aquella = lista.cabeza;
+        while(esta != null && aquella != null){
+          if(!(esta.elemento.equals(aquella.elemento)))
+            return false;
+          esta = esta.siguiente;
+          aquella = aquella.siguiente;
+            }
+          return true;
+	
 	  }
+	
 
 	 /**
 	 *Method to return a Iterator that we already implement before
@@ -493,10 +502,10 @@ public class Lista < T > implements Iterable < T >
 	{	  
 		String[] prueba = new String[10];
 		int cont;
-		for (cont = 0; cont < prueba.length && cont < args.length; cont++)
+		for (cont = 1; cont < prueba.length && cont < args.length; cont++)
 			prueba[cont] = args[cont];
-		Lista l1 = new Lista (prueba); //THIS ERROR?
-		System.out.println();
+		Lista l1 = new Lista (prueba); //THIS ERROR
+		System.out.println("Ejecutado");
 	 }
 
 }
