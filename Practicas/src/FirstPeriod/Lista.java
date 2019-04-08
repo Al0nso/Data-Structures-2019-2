@@ -5,7 +5,7 @@ package FirstPeriod;
  * @author: Claudia Osorio
  * @author Medina Amayo D. Alonso
  * @version 1
- * @date  17/03/2019
+ * @date 08/04/2019
  */
 
 import java.util.Iterator;
@@ -38,20 +38,20 @@ public class Lista < T > implements Iterable < T >
          */
         public Lista (T[] arreglo)
         {
-     // try
-     //{
+      try
+     {
         int i;
         Nodo n1 = new Nodo (arreglo[0]);
         this.ultimo = n1;
         n1.anterior = null;
         for ( i = 1; i < arreglo.length; i++) //i starts from 1 because we already used the first element of T on the head
-        agregaFinal (arreglo[i]); //THIS ERROR
+        agregaFinal (arreglo[i]); 
         this.longitud = i;
-     //}
-     //catch(Exception e)
-     // {
-     //       System.out.println(":( " + e);
-     //}
+     }
+     catch(Exception e)
+      {
+            System.out.println(":( " + e);
+     }
         }
 
 	 // Listas' class to representate nodes
@@ -229,7 +229,7 @@ public class Lista < T > implements Iterable < T >
 	public void agregaFinal (T t)
 	{
 		 if(t == null){
-        throw new NoSuchElementException  (); //THIS ERROR
+        throw new NoSuchElementException (); 
       }
       Nodo n1 = new Nodo (t);
         if(esVacia()){
@@ -502,10 +502,11 @@ public class Lista < T > implements Iterable < T >
 	{	  
 		String[] prueba = new String[10];
 		int cont;
-		for (cont = 1; cont < prueba.length && cont < args.length; cont++)
+		for (cont = 1; cont < prueba.length && cont < args.length; cont++){
 			prueba[cont] = args[cont];
-		Lista l1 = new Lista (prueba); //THIS ERROR
-		System.out.println("Ejecutado");
+		}
+		Lista <l1> = new Lista(prueba[cont]);  //THIS ERROR
+		System.out.println();
 	 }
 
 }
