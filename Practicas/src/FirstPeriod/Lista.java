@@ -501,11 +501,11 @@ public class Lista < T > implements Iterable < T >
 	public static void main (String[] args)
 	{	  
 		String[] prueba = new String[10];
-		int cont;
-		for (cont = 1; cont < prueba.length && cont < args.length; cont++){
-			prueba[cont] = args[cont];
-		}
-		Lista <l1> = new Lista(prueba[cont]);  //THIS ERROR
+	//nt cont;
+//for (cont = 1; cont < prueba.length && cont < args.length; cont++){
+//	prueba[cont] = args[cont];
+//}
+//Lista <l1> = new Lista(prueba[cont]);  //THIS ERROR
 		System.out.println();
 	 }
 
