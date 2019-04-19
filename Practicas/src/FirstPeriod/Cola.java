@@ -122,10 +122,15 @@ public class Cola<T> implements Iterable<T>{
     */
     public void mete(T t){
 	Nodo n1 = new Nodo (t);
+	if(esVacia()){
+		cabeza=ultimo=n1;
+	}else{
 	n1.siguiente = null;
 	this.ultimo.siguiente = n1;
+	//this.n1.anterior=ultimo;
 	this.ultimo=n1;
 	this.longitud++;
+}
 	}
 
 
@@ -187,19 +192,19 @@ public class Cola<T> implements Iterable<T>{
     *Método para implementar un iterador que ya usamos antes
     */
     @Override public Iterator<T> iterator(){
-	Iterator<T> I1 = new Iterador();
-		return I1;
+	//Iterator<T> I1 = new Iterador();
+		return new Iterador();
     }
 
     /**
      *Main method
      */
     public static void main (String[] args){     
-        String[] prueba = new String[10];
+        String[] prueba = new String[15];
         int cont;
-        for (cont = 0; cont < prueba.length && cont < args.length; cont++)
-            prueba[cont] = args[cont];
-        Cola<T> l1 = new Cola<T> (prueba); //THIS ERROR?
-        System.out.println();
-     }
+    for (cont = 1; cont < 14/**prueba.length && cont < args.length*/; cont++){
+    System.out.println(cont);
+    }
+        //Lista l1 =new Lista<prueba[cont]>;  //THIS ERROR
+        System.out.println(prueba[cont]);     }
 }
