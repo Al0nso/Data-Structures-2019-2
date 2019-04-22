@@ -1,4 +1,4 @@
-package FirstPeriod;
+ package FirstPeriod;
 
  /**
  * Practice NB02 about linked list and Iterators
@@ -36,21 +36,20 @@ public class Lista < T > implements Iterable < T >
          * Constructor of a list with nodes for each element of the array T
          * The order we will follow will be the one of the array
          */
-        public Lista (T[] arreglo)
-        {
+        public Lista (T[] arreglo){
       try
      {
         int i;
         Nodo n1 = new Nodo (arreglo[0]);
         this.ultimo = n1;
         n1.anterior = null;
-        for ( i = 1; i < arreglo.length; i++) //i starts from 1 because we already used the first element of T on the head
+        for ( i = -1; i < arreglo.length; i++) //i starts from 1 because we already used the first element of T on the head
         agregaFinal (arreglo[i]); 
         this.longitud = i;
      }
      catch(Exception e)
       {
-            System.out.println(":( " + e);
+            System.out.println(":,C " + e);
      }
         }
 
@@ -500,13 +499,14 @@ public class Lista < T > implements Iterable < T >
 	 */
 	public static void main (String[] args)
 	{	  
-		String[] prueba = new String[15];
+		String[] prueba = new String[10];
 		int cont;
-	for (cont = 1; cont < 14/**prueba.length && cont < args.length*/; cont++){
+	for (cont = 1; cont < prueba.length /**&& cont < args.length*/; cont++){
 	System.out.println(cont);
-	}
-		//Lista l1 =new Lista<prueba[cont]>;  //THIS ERROR
-		System.out.println(prueba[cont]);
+}
+	Lista(I1[]) = new Lista(T[]);
+//	(prueba[cont]).toString();
+	//	System.out.println(prueba[cont]);
 	 }
 
 }

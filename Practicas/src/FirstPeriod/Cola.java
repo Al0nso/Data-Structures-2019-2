@@ -127,7 +127,6 @@ public class Cola<T> implements Iterable<T>{
 	}else{
 	n1.siguiente = null;
 	this.ultimo.siguiente = n1;
-	//this.n1.anterior=ultimo;
 	this.ultimo=n1;
 	this.longitud++;
 }
@@ -205,6 +204,6 @@ public class Cola<T> implements Iterable<T>{
     for (cont = 1; cont < 14/**prueba.length && cont < args.length*/; cont++){
     System.out.println(cont);
     }
-        //Lista l1 =new Lista<prueba[cont]>;  //THIS ERROR
-        System.out.println(prueba[cont]);     }
+        System.out.println(prueba[cont]);     
+    }
 }
