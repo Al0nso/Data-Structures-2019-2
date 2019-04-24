@@ -65,7 +65,7 @@ public class Cola<T> implements Iterable<T>{
 	//Constructor con listas
     public Cola(Lista<T> l){
      	int i; 
-    	Nodo n1 = new Nodo(l);
+    	Nodo n1 = new Nodo(l);//Nodo n1 = new Nodo(l);
     	this.cabeza = n1;
     	n1.anterior = null;
     	for(i= 1; i < l.length; i++)
@@ -192,18 +192,19 @@ public class Cola<T> implements Iterable<T>{
     */
     @Override public Iterator<T> iterator(){
 	//Iterator<T> I1 = new Iterador();
-		return new Iterador();
+		return new iterator<Integer>();
     }
 
     /**
      *Main method
      */
     public static void main (String[] args){     
-        String[] prueba = new String[15];
-        int cont;
-    for (cont = 1; cont < 14/**prueba.length && cont < args.length*/; cont++){
+        String[] prueba = new String[10];
+        Integer cont;
+    for (cont = 1; cont < 14; cont++){
     System.out.println(cont);
     }
-        System.out.println(prueba[cont]);     
+    Cola<Integer> A2 = new Cola<Integer>(19);  
+    A2.mete(cont);   
     }
 }

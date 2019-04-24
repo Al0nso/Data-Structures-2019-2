@@ -41,9 +41,9 @@ public class Lista < T > implements Iterable < T >
      {
         int i;
         Nodo n1 = new Nodo (arreglo[0]);
-        this.ultimo = n1;
+        this.ultimo = n1; 
         n1.anterior = null;
-        for ( i = -1; i < arreglo.length; i++) //i starts from 1 because we already used the first element of T on the head
+        for ( i = 1; i < arreglo.length; i++) //i starts from 1 because we already used the first element of T on the head
         agregaFinal (arreglo[i]); 
         this.longitud = i;
      }
@@ -500,12 +500,13 @@ public class Lista < T > implements Iterable < T >
 	public static void main (String[] args)
 	{	  
 		String[] prueba = new String[10];
-		int cont;
-	for (cont = 1; cont < prueba.length /**&& cont < args.length*/; cont++){
+		Integer cont;
+	for (cont = 1; cont < prueba.length; cont++){
 	System.out.println(cont);
 }
-	Lista(I1[]) = new Lista(T[]);
-//	(prueba[cont]).toString();
+	Lista<Integer> A1 = new Lista<Integer>();
+	A1.agregaFinal(cont);	
+
 	//	System.out.println(prueba[cont]);
 	 }
 
