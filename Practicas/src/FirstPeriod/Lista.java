@@ -214,13 +214,20 @@ public class Lista < T > implements Iterable < T >
          */
 	public void agregaInicio (T t)
 	{
+		if(t == null){
+        throw new NoSuchElementException (); 
+      }
 		Nodo n1 = new Nodo (t);
+		if(esVacia()){
+        cabeza = ultimo = n1;
+        }else{
 		n1.siguiente = this.cabeza;
 		this.cabeza.anterior = n1;
 		this.cabeza = n1;
 		n1.anterior = null;
 		this.longitud++;
 	}
+}
 
 	 /**
          *Method to add at the end of the list
@@ -355,9 +362,7 @@ public class Lista < T > implements Iterable < T >
 			n2 = cabeza;
 			for (cont = 0; cont < indx; cont++)
 			n2 = n2.siguiente;
-		}
-		else
-		{
+		}else{
 			n2 = ultimo;
 			for (cont = this.longitud; cont > indx; cont--)
 			n2 = n2.anterior;
@@ -504,8 +509,8 @@ public class Lista < T > implements Iterable < T >
 	for (cont = 1; cont < prueba.length; cont++){
 	System.out.println(cont);
 }
-	Lista<Integer> A1 = new Lista<Integer>();
-	A1.agregaFinal(cont);	
+	Lista<Integer> A1 = new Lista<>();
+	//A1.agregaFinal(cont);	
 
 	//	System.out.println(prueba[cont]);
 	 }

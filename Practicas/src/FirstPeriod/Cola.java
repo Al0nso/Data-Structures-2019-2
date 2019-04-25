@@ -14,6 +14,41 @@ import java.util.Iterator;
  */
 public class Cola<T> implements Iterable<T>{
 
+    // 'class to representate nodes
+       private class Nodo{
+    /**Attributes of the node */
+        public T elemento;
+        public Nodo siguiente;
+        public Nodo anterior;
+
+        public Nodo (T elemento){
+            this.elemento = elemento;
+        }
+
+      public T getElemento() {
+        return elemento;
+        }
+
+      public void setElemento(T ele) {
+            this.elemento = ele;
+        }
+
+        public Nodo getSiguiente() {
+            return siguiente;
+        }
+
+        public void setSiguiente(Nodo sig) {
+            this.siguiente = sig;
+        }
+
+        public Nodo getAnterior(){
+          return anterior;
+        }
+        public void setAnterior(Nodo ant){
+          this.anterior = ant;
+        }   
+    }
+
 	//Atributos de la lista
     private Nodo cabeza;
     private Nodo ultimo;
@@ -21,10 +56,9 @@ public class Cola<T> implements Iterable<T>{
 
     /**
      *constructor that initializes the queue
-     *@param n 
      *we put -1 to indicate that the queue is empty
      */  
-    public Cola(int n){
+    public Cola(){
         cabeza = null;
         ultimo = null;
         longitud = -1;
@@ -43,36 +77,24 @@ public class Cola<T> implements Iterable<T>{
       }
     }
 
-    // Listas'class to representate nodes
-	private class Nodo
-	{
-	/**Attributes of the node */
-		public T elemento;
-		public Nodo siguiente;
-		public Nodo anterior;
-
-		public Nodo (T elemento)
-		{
-			this.elemento = elemento;
-		}
-
-		/**Empty constructor */
-		public Nodo ()
-        {
-        }		
-	}
-
 	//Constructor con listas
     public Cola(Lista<T> l){
-     	int i; 
-    	Nodo n1 = new Nodo(l);//Nodo n1 = new Nodo(l);
-    	this.cabeza = n1;
-    	n1.anterior = null;
-    	for(i= 1; i < l.length; i++)
-    		mete( l.get( i )  );
-    	this.longitud=i;
-    }
-    
+    Iterador it = (Iterador)l.iterator();
+    Iterador ite = (Iterador)iterator();
+    while(it.hasNext()){
+    T ele  = it.next();
+     ele = ite.next();
+     }
+     this.longitud = l.getLongitud();
+    /**  int i; 
+    *	Nodo n1 = new Nodo(Lista<T> l);
+    *	this.cabeza = n1;
+    *	n1.anterior = null;
+    *	for(i= 1; i < l.length; i++)
+    *		mete( l.get( i )  );
+    *	this.longitud=i; 
+    */
+}
 
     //Constructor con arreglos
     public Cola(T[] arreglo){
@@ -82,10 +104,7 @@ public class Cola<T> implements Iterable<T>{
 	n1.anterior = null;
 	for ( i = 1; i < arreglo.length; i++)
         mete(arreglo[i]);
-        this.longitud = i;
-
-    }
-
+        this.longitud = i;}
 
     /**
     *Este método nos dice si la cola esta vacía
@@ -100,10 +119,10 @@ public class Cola<T> implements Iterable<T>{
     *@return T siguiente elemento
     */
     public T mira(){
-        if(esVacia()){
-        	System.out.println("No hay nada aquí");
+    if(esVacia()){
+    	System.out.println("No hay nada aquí");
         }
-        return cabeza.elemento;
+    return cabeza.elemento;
     }
 
     /**
@@ -121,6 +140,9 @@ public class Cola<T> implements Iterable<T>{
     *@param T 
     */
     public void mete(T t){
+        if(t == null){
+        throw new IllegalArgumentException();
+      }
 	Nodo n1 = new Nodo (t);
 	if(esVacia()){
 		cabeza=ultimo=n1;
@@ -187,12 +209,46 @@ public class Cola<T> implements Iterable<T>{
 		return eqls;
     }
 
+    //Clase para iterar nuestra cola
+    private class Iterador implements Iterator<T>{
+      public Nodo siguiente;
+      public Nodo anterior;
+    public Iterador(){
+      anterior = null;
+        siguiente = cabeza;
+    }
+
+    @Override
+    public boolean hasNext(){
+       return siguiente != null;
+    }
+
+    @Override
+    public T next(){
+      if(!hasNext()){
+     throw new NoSuchElementException();
+      }
+         anterior = siguiente;
+         siguiente = anterior.siguiente;
+        return anterior.elemento;
+     }
+
+     public void end() {
+      anterior = ultimo;
+      siguiente = null;
+      }
+
+    public void start() {
+        anterior = null;
+        siguiente = cabeza;
+        }
+      }
+
     /**
     *Método para implementar un iterador que ya usamos antes
     */
     @Override public Iterator<T> iterator(){
-	//Iterator<T> I1 = new Iterador();
-		return new iterator<Integer>();
+	return new Iterador();
     }
 
     /**
@@ -204,7 +260,7 @@ public class Cola<T> implements Iterable<T>{
     for (cont = 1; cont < 14; cont++){
     System.out.println(cont);
     }
-    Cola<Integer> A2 = new Cola<Integer>(19);  
+    Cola<Integer> A2 = new Cola<Integer>();  
     A2.mete(cont);   
     }
 }
