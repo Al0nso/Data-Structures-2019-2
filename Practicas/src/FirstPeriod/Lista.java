@@ -1,59 +1,52 @@
- package FirstPeriod;
-
- /**
- * Practice NB02 about linked list and Iterators
- * @author: Claudia Osorio
- * @author Medina Amayo D. Alonso
- * @version 1
- * @date 08/04/2019
- */
+package FirstPeriod;
+/**
+* Practice NB02 about linked list and Iterators
+* @author: Claudia Osorio
+* @author Medina Amayo D. Alonso
+* @version 1
+* @date 08/04/2019
+*/
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 
- /**
- * Linked list implementation
- */
-public class Lista < T > implements Iterable < T >
-{
+/**
+* Linked list implementation
+*/
+public class Lista < T > implements Iterable < T >{
 
-	/**Attributes of the list */
+	//Attributes of the list 
 	 private Nodo cabeza;
 	 private Nodo ultimo;
 	 private int longitud;
 
 	 /**
-         * Constructor of an empty list
-         * We do literally nothing
-         */
-	public Lista ()
-	{
-	}
-
+      *Constructor of an empty list
+      * We do literally nothing
+      */
+	  public Lista ()
+	  {
+	 }
 
 		/**
          * Constructor of a list with nodes for each element of the array T
          * The order we will follow will be the one of the array
          */
-        public Lista (T[] arreglo){
-      try
-     {
-        int i;
-        Nodo n1 = new Nodo (arreglo[0]);
-        this.ultimo = n1; 
-        n1.anterior = null;
-        for ( i = 1; i < arreglo.length; i++) //i starts from 1 because we already used the first element of T on the head
-        agregaFinal (arreglo[i]); 
-        this.longitud = i;
-     }
-     catch(Exception e)
-      {
-            System.out.println(":,C " + e);
-     }
+         public Lista (T[] arreglo){
+         try{
+         int i;
+         Nodo n1 = new Nodo (arreglo[0]);
+         this.ultimo = n1; 
+         n1.anterior = null;
+         for ( i = 1; i < arreglo.length; i++) //i starts from 1 because we already used the first element of T on the head
+         agregaFinal (arreglo[i]); 
+         this.longitud = i;
+     	 } catch(Exception e){
+            System.out.println(":,C " + e);}
         }
 
-	 // Listas' class to representate nodes
+	// Listas' class to representate nodes
 	private class Nodo
 	{
 
@@ -96,6 +89,7 @@ public class Lista < T > implements Iterable < T >
 		}
 
 		 /**
+
 		 *Method to return next node of our list
 		 *If the list don't have next node we will return null
 		 *@return temp
@@ -502,17 +496,15 @@ public class Lista < T > implements Iterable < T >
     /**
 	 *Main method
 	 */
-	public static void main (String[] args)
-	{	  
-		String[] prueba = new String[10];
-		Integer cont;
-	for (cont = 1; cont < prueba.length; cont++){
-	System.out.println(cont);
-}
-	Lista<Integer> A1 = new Lista<>();
-	//A1.agregaFinal(cont);	
-
-	//	System.out.println(prueba[cont]);
-	 }
+	 public static void main (String[] args){
+	 	 Lista<Integer> A1 = new Lista<>(); 
+	/** String[] prueba = new String[11];
+	* Integer cont;
+	* for (cont = 1; cont < prueba.length; cont++){
+	* System.out.println(cont);
+	* }Lista<Integer> A1 = new Lista<>();
+	* A1.agregaFinal(cont);
+	* A1.toString();
+	*/}
 
 }
