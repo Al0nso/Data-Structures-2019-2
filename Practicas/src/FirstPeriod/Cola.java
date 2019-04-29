@@ -80,15 +80,8 @@ public class Cola<T> implements Iterable<T>{
     
 	//Constructor con listas
      public Cola(Lista<T> l){
-	 /**int i;
-	  *Iterador it = l.iterator();
-     while(it.hasNext()){
-     T ele  = it.next();
-     this.longitud = l.getLongitud();
-     }*/
      Lista <Integer> n2 = new Lista<>();
      this.longitud = n2.getLongitud(); 
-  
      }
 
     //Constructor con arreglos
@@ -125,9 +118,15 @@ public class Cola<T> implements Iterable<T>{
     *@return T
     */
     public T saca(){
-	T n1 = cabeza.elemento;
-    cabeza.siguiente = cabeza;
-    return n1;
+	T n1 = ultimo.elemento;
+	if(n1 == null){
+	    n1 = cabeza.elemento = ultimo.elemento;
+	    return n1;
+	}else{
+     n1 = ultimo.elemento;
+    ultimo.anterior = ultimo;
+    return n1;	
+	}
     }
 
     /**
@@ -144,9 +143,9 @@ public class Cola<T> implements Iterable<T>{
 	}else{
 	n1.siguiente = null;
 	this.ultimo.siguiente = n1;
-	this.ultimo=n1;
 	this.longitud++;
-}
+	this.ultimo=n1;
+	}
 	}
 
 
@@ -252,10 +251,11 @@ public class Cola<T> implements Iterable<T>{
      */
      public static void main (String[] args){   
      Cola<Integer> A2 = new Cola<>();   
-     String[] prueba = new String[10];
-     Integer cont;
+      String[] prueba = new String[10];
+      Integer cont;
      for (cont = 1; cont < 14; cont++){
-     System.out.println(cont);}  
-     A2.mete(cont);   
+	 A2.mete(cont);
+      	 System.out.println(A2.saca());
+     }
     }
 }

@@ -279,7 +279,7 @@ public abstract class ArbolBinario < T >
 			if(p.hijo() != 0) //We will work as long as we have p's son(s)
 				switch(s)
 				{
-				case 1: if(p.hijo() == 3 || p.hijo() == 1 )
+				case 1: if(p.hijo() == 3 || p.hijo() == 1 ){
 					       	girarIzquierda( p, p.derecho);
 						return true;
 						break;

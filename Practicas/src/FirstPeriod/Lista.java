@@ -115,7 +115,7 @@ public class Lista < T > implements Iterable < T >{
          *if we have an empty list we will return null
          *@return elemento
          */
-	public T getPrimero ()
+    	public T getPrimero ()
 	{
 	        try
 	        {
@@ -158,11 +158,12 @@ public class Lista < T > implements Iterable < T >{
 			elemnt = cabeza.elemento;
 			this.cabeza = null;  //this.cabeza = cabeza.siguiente;
 			this.cabeza.siguiente = this.cabeza;	//this.cabeza.anterior = null;
-			if (this.longitud == 1)
+			if (this.longitud == 1){
 				ultimo = null;
-			else
+				return null;
+			}	else{
 				this.longitud--;
-			return elemnt;
+				return elemnt;}
 		} else{
 
 			return null;
@@ -181,7 +182,7 @@ public class Lista < T > implements Iterable < T >{
          *@return elemnt
          */
 	public T eliminaUltimo ()
-	{
+    { T element;
 		try{
 
 		T elemnt;
@@ -213,7 +214,7 @@ public class Lista < T > implements Iterable < T >{
 	{
 		if(t == null){
         throw new NoSuchElementException (); 
-      }
+		}else{
 		Nodo n1 = new Nodo (t);
 		if(esVacia()){
         cabeza = ultimo = n1;
@@ -223,6 +224,7 @@ public class Lista < T > implements Iterable < T >{
 		this.cabeza = n1;
 		n1.anterior = null;
 		this.longitud++;
+		}
 	}
 }
 
@@ -233,7 +235,7 @@ public class Lista < T > implements Iterable < T >{
 	{
 		 if(t == null){
         throw new NoSuchElementException (); 
-      }
+		 }else{
       Nodo n1 = new Nodo (t);
         if(esVacia()){
         cabeza = ultimo = n1;
@@ -244,6 +246,7 @@ public class Lista < T > implements Iterable < T >{
 		//this.ultimo = n1;
 		this.longitud++;
             }
+		 }
 	}
 
 	 /**
@@ -501,15 +504,17 @@ public class Lista < T > implements Iterable < T >{
 	 */
 	 public static void main (String[] args){
 	 Lista<Integer> A1 = new Lista<>(); 
-	 /** String[] prueba = new String[11];
-	  *Integer cont;
-	  *for (cont = 1; cont < prueba.length; cont++){
-	  * System.out.println(cont);
-	  *}
-	  * Lista<Integer> A1 = new Lista<>();
-	  *A1.agregaFinal(cont);
-	  *A1.toString();}
-	  */
+	 //String[] prueba = new String[10];
+	  /**Integer cont;
+	   *  for (cont = 1; cont < prueba.length; cont++){
+	   *  //System.out.println(cont);
+	   * }
+	   *A1.agregaFinal(cont);
+	   *System.out.println("El primero es "+ A1.eliminaUltimo());
+	   *System.out.println("El primero es "+ A1.getPrimero());
+	   *System.out.println("El ultimo es " + A1.getUltimo());
+	   */
+	 
 	}
 
 }
