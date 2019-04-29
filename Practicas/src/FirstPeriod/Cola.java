@@ -252,11 +252,10 @@ public class Cola<T> implements Iterable<T>{
      */
      public static void main (String[] args){   
      Cola<Integer> A2 = new Cola<>();   
-     /**String[] prueba = new String[10];
-     *Integer cont;
-     *for (cont = 1; cont < 14; cont++){
-     *System.out.println(cont);}
-     *Cola<Integer> A2 = new Cola<>();  
-     *A2.mete(cont);   
-    */}
+     String[] prueba = new String[10];
+     Integer cont;
+     for (cont = 1; cont < 14; cont++){
+     System.out.println(cont);}  
+     A2.mete(cont);   
+    }
 }
