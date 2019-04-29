@@ -2,10 +2,11 @@ package SecondPeriod;
 
 public enum Color
 {
-    ROJO, NEGRO;
+	ROJO, NEGRO;
 
-    @Override
-    public String toString()
+
+	@Override
+	public String toString()
 	{
 		switch(this){
 			case ROJO:
@@ -14,5 +15,5 @@ public enum Color
 			    return "Negro";
 		}
 		return null;
-    }
+    	}
 }

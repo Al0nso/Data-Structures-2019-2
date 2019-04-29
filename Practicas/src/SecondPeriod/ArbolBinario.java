@@ -1,6 +1,7 @@
 package SecondPeriod;
-import FirstPeriod.Listas;
-import FirstPeriod.Colas;
+//import FirstPeriod.Listas;
+//import FirstPeriod.Colas;
+import FirstPeriod.*;
 import java.util.function.Consumer;
 
  /**
@@ -69,6 +70,24 @@ public abstract class ArbolBinario < T >
                                 return 2;
 			return 0;
                 }
+
+		/**
+		*Method to know if the node is left or right son
+		* 1 if it is left
+		* 2 if it is right
+		* 0 of we have no father
+		* -1 if we have something weird
+		*/
+		public int lado()
+		{
+			if(this.padre == null)
+				return 0;
+			if(this.padre.izquierdo == this )
+                                return 1;
+			if(this.padre.derecho == this )
+                                return 2;
+			return -1;
+		}
 	}
 
 	public ArbolBinario()
@@ -100,21 +119,28 @@ public abstract class ArbolBinario < T >
 		else
 		{
 			funcion.accept(this.raiz.elemento);
-			Cola tl = new Cola(); //Create the new tail
+			Cola<Vertice> tl = new Cola<Vertice>(); //Create the new tail only of nodes
 			if( this.raiz.hijo() == 3 || this.raiz.hijo() == 2  )
 				tl.mete(this.raiz.derecho);
 			if( this.raiz.hijo() == 3 || this.raiz.hijo() == 1  )
 				tl.mete(this.raiz.izquierdo);
-			Vertice v = new Vertice();
-			while( ! ( tl.esVacia() ) )
+			try
 			{
-				v = tl.saca();
-				funcion.accept(v.elemento);
-				if( v.hijo() == 3 || v.hijo() == 2  )
-					tl.mete(v.derecho);
-				if( v.hijo() == 3 || v.hijo() == 1  )
-                                        tl.mete(v.izquierdo);
-
+				Vertice v = new Vertice();
+				Object o = new Object();
+				while( ! ( tl.esVacia() ) )
+				{
+					v = tl.saca();
+					funcion.accept(v.elemento);
+					if( v.hijo() == 3 || v.hijo() == 2  )
+						tl.mete(v.derecho);
+					if( v.hijo() == 3 || v.hijo() == 1  )
+		                                tl.mete(v.izquierdo);
+				}
+			}
+			catch(Exception e)
+			{
+				System.out.println("Error at BFS on Arbol Binario, " + e);
 			}
 		}
 	}
@@ -242,7 +268,9 @@ public abstract class ArbolBinario < T >
 
 	/**
 	* Function to turn a tree
-	* We will know which side to turn by the int s (side), 1 to turn leftand to turn right
+	* We will know which side to turn by the int s (side)
+	*  1 to turn left
+	*  2 to turn right
 	*/
 	public boolean girar (Vertice p, int s)
 	{
