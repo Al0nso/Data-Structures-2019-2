@@ -27,9 +27,6 @@ public class Lista < T > implements Iterable < T >{
       */
 	  public Lista ()
 	  {
-	      //cabeza =null;
-	      //ultimo =null;
-	      //longitud= -1;
 	 }
 
 		/**
@@ -60,7 +57,7 @@ public class Lista < T > implements Iterable < T >{
 
 		public Nodo (T elemento)
 		{
-			this.elemento = elemento;
+			elemento = this.elemento;
 		}
 
 		/**Empty constructor */
@@ -113,11 +110,10 @@ public class Lista < T > implements Iterable < T >{
          /**
          *Method to get the first element of the list
          *if we have an empty list we will return null
-         *@return elemento
+         *@return elemnt
          */
-    	public T getPrimero ()
-	{
-	        try
+    	public T getPrimero ()	{
+	      try
 	        {
 	            return this.cabeza.elemento;
 	        }
@@ -131,48 +127,15 @@ public class Lista < T > implements Iterable < T >{
 	 /**
          *Method to get the last element of the list
          *if we have an empty list we will return null
-         *@return elemento
+         *@return elemnt
          */
 	public T getUltimo ()
-	{
-		try
-	        {
-	            return this.ultimo.elemento;
-	        }
-	        catch(NoSuchElementException e)
-	        {
-	            System.out.println("Void list");
-	            throw e; // rethrowing the exception
-	        }
-
-	  }
-
-	/**
-        *Method to delete the first element of the list and return it one last time
-        *@return elemnt
-        */
-	public T eliminaPrimero (){
-		T elemnt;
-		try{
-			if (this.cabeza != null){
-			elemnt = cabeza.elemento;
-			this.cabeza = null;  //this.cabeza = cabeza.siguiente;
-			this.cabeza.siguiente = this.cabeza;	//this.cabeza.anterior = null;
-			if (this.longitud == 1){
-				ultimo = null;
-				return null;
-			}	else{
-				this.longitud--;
-				return elemnt;}
-		} else{
-
-			return null;
-		}
-		}
-		catch(NoSuchElementException e){
-	        System.out.println("Void list");
-	        throw e; // rethrowing the exception
-	    }
+    {	        T elemnt = ultimo.elemento;
+	if(elemnt != null){	    
+	    return elemnt;
+	}else{
+	    return null;
+	}
 	}
 
 	
@@ -181,18 +144,18 @@ public class Lista < T > implements Iterable < T >{
          *Method to delete the last element of the list
          *@return elemnt
          */
-	public T eliminaUltimo ()
-    { T element;
+    public T eliminaUltimo (){
+	T element;
 		try{
 
 		T elemnt;
 		if (this.cabeza != null)
 		{
 			elemnt = ultimo.elemento;
-			this.ultimo = null; //this.ultimo = ultimo.anterior
-			this.ultimo.anterior = this.ultimo; //this.ultimo.siguiente = null;
+			this.ultimo = null;
+			this.ultimo.anterior = this.ultimo; 
 			if (this.longitud == 1)
-				this.ultimo = null; //I put this. para ver si compilaba 20.03.19 11.45am
+				this.ultimo = null; 
 			else
 				this.longitud--;
 			return elemnt;
@@ -205,6 +168,29 @@ public class Lista < T > implements Iterable < T >{
 	            System.out.println("Void list");
 	            throw e; // rethrowing the exception
 	        }
+	  }
+
+	/**
+        *Method to delete the first element of the list and return it one last time
+        *@return elemnt
+        */
+	public T eliminaPrimero (){
+		T elemnt;
+			if (cabeza != null){
+			elemnt = cabeza.elemento;
+			  cabeza.siguiente = this.cabeza;
+			if (this.longitud == 1){
+				cabeza = null;
+				return null;
+			}else{
+				this.longitud--;
+				return elemnt;
+				}
+		} else{
+			    elemnt = null;
+			return elemnt;
+		
+	}
 	}
 
 	 /**
@@ -212,12 +198,13 @@ public class Lista < T > implements Iterable < T >{
          */
 	public void agregaInicio (T t)
 	{
+
 		if(t == null){
         throw new NoSuchElementException (); 
 		}else{
 		Nodo n1 = new Nodo (t);
 		if(esVacia()){
-        cabeza = ultimo = n1;
+        cabeza = n1;
         }else{
 		n1.siguiente = this.cabeza;
 		this.cabeza.anterior = n1;
@@ -226,7 +213,7 @@ public class Lista < T > implements Iterable < T >{
 		this.longitud++;
 		}
 	}
-}
+	}
 
 	 /**
          *Method to add at the end of the list
@@ -238,12 +225,12 @@ public class Lista < T > implements Iterable < T >{
 		 }else{
       Nodo n1 = new Nodo (t);
         if(esVacia()){
-        cabeza = ultimo = n1;
+        cabeza  = n1;
         }else{
            n1.siguiente = null;
 		this.ultimo.siguiente = n1;
 		n1.anterior = this.ultimo;
-		//this.ultimo = n1;
+		this.ultimo = n1;
 		this.longitud++;
             }
 		 }
@@ -504,16 +491,20 @@ public class Lista < T > implements Iterable < T >{
 	 */
 	 public static void main (String[] args){
 	 Lista<Integer> A1 = new Lista<>(); 
-	 //String[] prueba = new String[10];
-	  /**Integer cont;
-	   *  for (cont = 1; cont < prueba.length; cont++){
-	   *  //System.out.println(cont);
-	   * }
-	   *A1.agregaFinal(cont);
-	   *System.out.println("El primero es "+ A1.eliminaUltimo());
-	   *System.out.println("El primero es "+ A1.getPrimero());
-	   *System.out.println("El ultimo es " + A1.getUltimo());
-	   */
+	  String[] prueba = new String[11];
+	 Integer cont;
+	  for (cont = 1; cont < prueba.length; cont++){
+	      System.out.println(cont);
+	  }
+	  A1.agregaFinal(cont);
+	  System.out.println("El ultimo es " + A1.getUltimo());
+	  System.out.println("El primero es " + A1.getPrimero());
+	  //  A1.eliminaPrimero();
+	  //  A1.eliminaUltimo();
+	  // System.out.println("El ultimo ahora es " + A1.getUltimo());
+	  // System.out.println("El primero ahora es " + A1.getPrimero());
+	  
+
 	 
 	}
 
