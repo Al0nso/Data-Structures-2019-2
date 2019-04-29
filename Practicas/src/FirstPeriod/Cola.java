@@ -66,28 +66,30 @@ public class Cola<T> implements Iterable<T>{
 	 }
     
 
-    private class Lista{
+    private class Seris{
      //Atributos de la lista
      public T elemento;
      public Nodo cabeza;
      public Nodo ultimo;
      public int longitud;
     
-      public Lista(T elemento){
-        this.elemento = elemento; 
-      }
-    }
-
+	     public Seris(T elemento){	
+    this.elemento = elemento; 
+	   }
+	}
+    
 	//Constructor con listas
      public Cola(Lista<T> l){
-     int i;
-     Iterador it = l.iterator();
+	 /**int i;
+	  *Iterador it = l.iterator();
      while(it.hasNext()){
      T ele  = it.next();
-     for(i=1; 1 < l.length; i++)
      this.longitud = l.getLongitud();
-     } 
-	}
+     }*/
+     Lista <Integer> n2 = new Lista<>();
+     this.longitud = n2.getLongitud(); 
+  
+     }
 
     //Constructor con arreglos
     public Cola(T[] arreglo){
@@ -181,7 +183,7 @@ public class Cola<T> implements Iterable<T>{
 		boolean eqls = true;	//eqls stands for equals
 		if (o.getClass() == this.getClass())
 		{				//Here we compare the class of our list and ob
-			Cola<T> lob = new Cola<T>(o);
+			Cola<T> lob = new Cola<T>();
 			Nodo n2 = lob.cabeza;	//If ob is a list we create the List l1 and then the node n2 wich is the head of ob
 			while (eqls)
 			{			//Here we will compare every item of both list

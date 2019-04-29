@@ -27,13 +27,16 @@ public class Lista < T > implements Iterable < T >{
       */
 	  public Lista ()
 	  {
+	      //cabeza =null;
+	      //ultimo =null;
+	      //longitud= -1;
 	 }
 
 		/**
          * Constructor of a list with nodes for each element of the array T
          * The order we will follow will be the one of the array
          */
-         public Lista (T[] arreglo){
+    public Lista (T[] arreglo){
          try{
          int i;
          Nodo n1 = new Nodo (arreglo[0]);
@@ -497,14 +500,16 @@ public class Lista < T > implements Iterable < T >{
 	 *Main method
 	 */
 	 public static void main (String[] args){
-	 	 Lista<Integer> A1 = new Lista<>(); 
-	/** String[] prueba = new String[11];
-	* Integer cont;
-	* for (cont = 1; cont < prueba.length; cont++){
-	* System.out.println(cont);
-	* }Lista<Integer> A1 = new Lista<>();
-	* A1.agregaFinal(cont);
-	* A1.toString();
-	*/}
+	 Lista<Integer> A1 = new Lista<>(); 
+	 /** String[] prueba = new String[11];
+	  *Integer cont;
+	  *for (cont = 1; cont < prueba.length; cont++){
+	  * System.out.println(cont);
+	  *}
+	  * Lista<Integer> A1 = new Lista<>();
+	  *A1.agregaFinal(cont);
+	  *A1.toString();}
+	  */
+	}
 
 }
