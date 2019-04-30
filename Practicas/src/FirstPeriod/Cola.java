@@ -168,7 +168,7 @@ public class Cola<T> implements Iterable<T>{
 			lst += n1.siguiente;
 		}
 		
-			return "[]";
+			return ", ";
     }
 
 
@@ -251,11 +251,15 @@ public class Cola<T> implements Iterable<T>{
      */
      public static void main (String[] args){   
      Cola<Integer> A2 = new Cola<>();   
-      String[] prueba = new String[10];
+     /** String[] prueba = new String[10];
       Integer cont;
      for (cont = 1; cont < 14; cont++){
 	 A2.mete(cont);
-      	 System.out.println(A2.saca());
+      	 System.out.print(A2.saca());
+	      System.out.print(A2.toString());
+	         System.out.print(A2.mira());
      }
-    }
+  
+     */
+     }
 }
