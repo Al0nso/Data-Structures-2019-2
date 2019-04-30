@@ -129,13 +129,14 @@ public class Lista < T > implements Iterable < T >{
          *@return elemento
          */
 	public T getUltimo () {
+	    T elemento = ultimo.elemento;
 	   try{
 		    if (ultimo.elemento != null){
 			return ultimo.elemento;
 		    }else {
 			return null;
 		    }
-	        }  catch(NoSuchElementException e){
+	        } catch(NoSuchElementException e){
 	            System.out.println("Void list");
 	            throw e; // rethrowing the exception
 	        }
@@ -146,7 +147,7 @@ public class Lista < T > implements Iterable < T >{
          *@return elemnt
          */
     public T eliminaUltimo (){
-	T elemento;
+	T elemento = ultimo.elemento;
 		try{
 		if (ultimo.elemento != null)
 		{

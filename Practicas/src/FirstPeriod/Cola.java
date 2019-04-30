@@ -13,7 +13,7 @@ import java.util.Iterator;
  * Implementación de colas.
  */
 public class Cola<T> implements Iterable<T>{
-
+    
     // 'class to representate nodes
      private class Nodo{
      /**Attributes of the node */
@@ -99,7 +99,12 @@ public class Cola<T> implements Iterable<T>{
     *@return True o False
     **/
     public boolean esVacia(){
-        return cabeza == null; //Check
+	Lista<T> cola = new Lista<>();
+         if (cola.getLongitud()>0)
+             return false;
+      
+         else
+             return  true;
     }
 
     /**
