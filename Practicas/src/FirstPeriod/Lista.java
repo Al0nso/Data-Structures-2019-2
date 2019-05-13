@@ -1,76 +1,96 @@
 package FirstPeriod;
- /**
- * Practice NB02 about linked list and Iterators
- * @autor: Claudia Osorio
- * @author Medina Amayo D. Alonso
- * @version 0.2
- * @date  20/02/2019
- */
+/**
+* Practice NB02 about linked list and Iterators
+* @author: Claudia Osorio
+* @author Medina Amayo D. Alonso
+* @version 1
+* @date 08/04/2019
+* status: online
+* javac -d Practicas/build/ Practicas/src/FirstPeriod/Lista.java
+* java -cp Practicas/build/ FirstPeriod.Lista
+*/
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 
- /**
- * Linked list implementation
- */
-public class Lista < T > implements Iterable < T >
-{
+/**
+* Linked list implementation
+*/
+public class Lista < T > implements Iterable < T >{
 
-	/**Attributes of the list */
+	//Attributes of the list
 	 private Nodo cabeza;
 	 private Nodo ultimo;
 	 private int longitud;
 
-	 /**
-         * Constructor of an empty list
-         * We do literally nothing
-         */
-	public Lista ()
-	{
-	}
+	// Listas' class to representate nodes
+        private class Nodo
+        {
 
-	 /**
+                /**Attributes of the node */
+                public T elemento;
+                public Nodo siguiente;
+                public Nodo anterior;
+
+                public Nodo (T elemento)
+                {
+                        this.elemento = elemento;
+			this.siguiente = null;
+			this.anterior = null;
+                }
+
+                /**Empty constructor */
+                public Nodo ()
+                {
+			this.elemento = null;
+                        this.siguiente = null;
+                        this.anterior = null;
+                }
+        }
+
+      /**
+      *Constructor of an empty list
+      * We do literally nothing
+      */
+	public Lista ()
+	  {
+	      this.cabeza = null;
+	      this.ultimo = null;
+	      this.longitud = -1;
+	  }
+
+		/**
          * Constructor of a list with nodes for each element of the array T
          * The order we will follow will be the one of the array
          */
-	public Lista (T[] arreglo)
-	{
-		int i; //counter
-		Nodo n1 = new Nodo (arreglo[0]);
-		this.cabeza = n1;
-		n1.anterior = null;
-		for (i = 1; i < arreglo.length; i++)	//i starts from 1 because we already used the first element of T on the head
-			agregaFinal (arreglo[i]);
-		this.longitud = i;
-	}
-
-	 // Listas' class to representate nodes
-	private class Nodo
-	{
-
-		/**Attributes of the node */
-		public T elemento;
-		public Nodo siguiente;
-		public Nodo anterior;
-
-		public Nodo (T elemento)
-		{
-			this.elemento = elemento;
-		}
-	}
+    public Lista (T[] arreglo){
+         try{
+	         int i;
+	         Nodo n1 = new Nodo (arreglo[0]);
+	         this.cabeza = n1;
+	         n1.anterior = null;
+	         for ( i = 1; i < arreglo.length; i++) //i starts from 1 because we already used the first element of T on the head
+		         agregaFinal ( arreglo[i] );
+	         this.longitud = i ;
+     	 }
+	 catch(Exception e)
+	 {
+            System.out.println(":,C " + e);}
+         }
 
 	 // Interator class of our list
 	private class Iterador implements Iterator < T >
 	{
 
-		public Nodo actual = cabeza;
+		public Nodo actual;
 
 		 /**
 	          *Constructor of a new Iterator
 	          */
 		public Iterador ()
 		{
+			this.actual = cabeza;
 		}
 
 		 /**
@@ -96,9 +116,9 @@ public class Lista < T > implements Iterable < T >
 				this.actual = this.actual.siguiente;
 				return temp.elemento;
 			}
+			return null;
 		}
- 	}
-
+	}
          /**
          *Method to get the first element of the list
          *if we have an empty list we will return null
@@ -140,23 +160,33 @@ public class Lista < T > implements Iterable < T >
         *Method to delete the first element of the list and return it one last time
         *@return elemnt
         */
-	public T eliminaPrimero ()
-	{
-		T elemnt;
-		if (this.cabeza != null)
+	public T eliminaPrimero (){
+		try
 		{
-			elemnt = cabeza.elemento;
-			this.cabeza = cabeza.siguiente;
-			this.cabeza.anterior = null;
-			if (this.longitud == 1)
-				ultimo = null;
-			else
+			T elemnt;
+			if (this.cabeza != null)
+			{
+				elemnt = cabeza.elemento;
+				this.cabeza = cabeza.siguiente;
+				if(this.cabeza != null)
+					this.cabeza.anterior = null;
+				if (this.longitud == 2)
+					this.ultimo = this.cabeza;
 				this.longitud--;
-			return elemnt;
+				return elemnt;
+			}
+			else
+			{
+				return null;
+			}
 		}
-		else
-			return null;
+		catch(NoSuchElementException e)
+		{
+		        System.out.println("Void list");
+	        	throw e; // rethrowing the exception
+	    	}
 	}
+
 
 	 /**
          *Method to delete the last element of the list
@@ -164,20 +194,29 @@ public class Lista < T > implements Iterable < T >
          */
 	public T eliminaUltimo ()
 	{
-		T elemnt;
-		if (this.cabeza != null)
+		try
 		{
-			elemnt = ultimo.elemento;
-			this.ultimo = ultimo.anterior;
-			this.ultimo.siguiente = null;
-			if (this.longitud == 1)
-				ultimo = null;
-			else
+			T elemnt;
+			if (this.cabeza != null)
+			{
+				elemnt = ultimo.elemento;
+				this.ultimo = ultimo.anterior;
+				this.ultimo.siguiente = null;
 				this.longitud--;
-			return elemnt;
+				if(this.longitud == 1)
+					this.cabeza = this.ultimo;
+				return elemnt;
+			}
+			else
+			{
+				return null;
+			}
 		}
-		else
-			return null;
+		catch(NoSuchElementException e)
+	        {
+	            System.out.println("Void list");
+	            throw e; // rethrowing the exception
+	        }
 	}
 
 	 /**
@@ -185,11 +224,22 @@ public class Lista < T > implements Iterable < T >
          */
 	public void agregaInicio (T t)
 	{
+		if(t == null)
+	        	throw new NoSuchElementException ();
 		Nodo n1 = new Nodo (t);
-		n1.siguiente = this.cabeza;
-		this.cabeza.anterior = n1;
-		this.cabeza = n1;
-		n1.anterior = null;
+		if( esVacia() )
+		{
+		        cabeza = ultimo = n1;
+			this.longitud = 0;
+		}
+		else
+		{
+			n1.siguiente = this.cabeza;
+			this.cabeza.anterior = n1;
+			this.cabeza = n1;
+			n1.anterior = null;
+			this.longitud++;
+		}
 	}
 
 	 /**
@@ -197,11 +247,21 @@ public class Lista < T > implements Iterable < T >
          */
 	public void agregaFinal (T t)
 	{
+		if(t == null)
+		        throw new NoSuchElementException ();
 		Nodo n1 = new Nodo (t);
-		n1.siguiente = null;
-		this.ultimo.siguiente = n1;
-		n1.anterior = this.ultimo;
-		this.ultimo = n1;
+	        if(esVacia())
+		{
+	        	this.agregaInicio(t);
+		}
+	        else
+		{
+	        	n1.siguiente = null;
+			this.ultimo.siguiente = n1;
+			n1.anterior = this.ultimo;
+			this.ultimo = n1;
+			this.longitud++;
+	        }
 	}
 
 	 /**
@@ -217,12 +277,21 @@ public class Lista < T > implements Iterable < T >
 		{
 			if(n1.elemento == t)
 				ctn = true;	//Here he compaire element by element
-			if (ctn)
-			  return ctn;
+			if ( ctn )
+				return ctn;
 			n1 = n1.siguiente;
 		}
 		return ctn;
 	  }
+
+
+	/**Método para saber si es esVacia
+ 	*@return boolean: true si es vacía y false en caso contrario
+	**/
+	public boolean esVacia(){
+		return this.cabeza == null && this.ultimo == null;
+	}
+
 
 	 /**
          *Method to return the long of the list
@@ -232,19 +301,20 @@ public class Lista < T > implements Iterable < T >
 		return this.longitud;
 	}
 
- 	 /**
-         *Method to delete the first appearance of t in our list
- 	 *@return true if we could delete
-	 *@return false if we couldn't compare, delete or isn't in our list
-         */
+ 	/**
+        *Method to delete the first appearance of t in our list
+ 	*@return true if we could delete
+	*@return false if we couldn't compare, delete or isn't in our list
+        */
 	public boolean elimina (T t)
 	{
 		Nodo n1 = this.cabeza;
-		if (contiene (t))
+		if (contiene (t) )
 		{
 			if (this.cabeza.elemento.equals (t))
 			{
 				eliminaPrimero ();
+				this.longitud--;
 				return true;
 			}
 			else
@@ -255,15 +325,16 @@ public class Lista < T > implements Iterable < T >
 				{
 					n1.siguiente.anterior = n1.anterior;
 					n1.anterior.siguiente = n1.siguiente;
+					this.longitud--;
 					return true;
 				}
 				else
 				{
 					eliminaUltimo ();
+					this.longitud--;
 					return true;
 				}
 		}
-		else
 			return false;
 	  }
 
@@ -273,6 +344,7 @@ public class Lista < T > implements Iterable < T >
 	public void limpia ()
 	{
 		this.cabeza = this.ultimo = null;
+		this.longitud = -1;
 	}
 
 	 /**
@@ -283,11 +355,13 @@ public class Lista < T > implements Iterable < T >
          */
 	public T get (int indx)
 	{
-		if (indx <= this.longitud)
+		if (indx <= this.getLongitud() && indx >= 0)
 		{
 			int cont;
 			Nodo n1 = this.cabeza;
-			for (cont = 0; cont <= indx; cont++)
+			for (cont = 0; cont <= (indx - 1); cont++)
+				n1 = n1.siguiente;
+			if( indx > cont )
 				n1 = n1.siguiente;
 			return n1.elemento;
 		}
@@ -302,23 +376,38 @@ public class Lista < T > implements Iterable < T >
 	{
 		int cont;
 		Nodo n1 = new Nodo (t);
+		if(indx == 0)
+		{
+			agregaInicio(t);
+			return;
+		}
+		if(indx == this.getLongitud() )
+                {
+                        agregaFinal(t);
+                        return;
+                }
 		Nodo n2;
-		if ((this.longitud + 1) / 2 >= indx)
+		if ( ( this.longitud  ) / 2 >= indx)
 		{
 			n2 = cabeza;
 			for (cont = 0; cont < indx; cont++)
-			n2 = n2.siguiente;
+				n2 = n2.siguiente;
+			n1.siguiente = n2.siguiente;
+	                n2.siguiente = n1;
+	                n1.siguiente.anterior = n1;
+	                n1.anterior = n2;
 		}
 		else
 		{
 			n2 = ultimo;
-			for (cont = this.longitud; cont > indx; cont--)
-			n2 = n2.anterior;
+			for (cont = this.getLongitud(); cont > indx; cont--)
+				n2 = n2.anterior;
+			n1.anterior = n2.anterior;
+	                n2.anterior = n1;
+	                n1.anterior.siguiente = n1;
+	                n1.siguiente = n2;
 		}
-		n1.siguiente = n2.siguiente;
-		n2.siguiente = n1;
-		n1.siguiente.anterior = n1;
-		n1.anterior = n2;
+		this.longitud++;
 	}
 
 	 /**
@@ -327,8 +416,8 @@ public class Lista < T > implements Iterable < T >
 	 */
 	public Object[] toArray ()
 	{
-		Object[]listArray = new Object[this.longitud];
-		int cont;			//Counter
+		Object[] listArray = new Object[this.longitud];
+		int cont;//Counter
 		Nodo n1 = this.cabeza;
 		for (cont = 0; cont < this.longitud; cont++)
 		{
@@ -345,13 +434,13 @@ public class Lista < T > implements Iterable < T >
 	public Lista < T > reversa ()
 	{
 
-		Lista l1 = new Lista ();
+		Lista <T> l1 = new Lista <T> ();
 		Nodo n1 = this.ultimo;
 		int cont;//Counter
 		Nodo n2 = l1.cabeza;
 		n2 = n1;
 		for (cont = 0; cont < this.longitud; cont++)
-		n2.siguiente = n1.anterior;
+			n2.siguiente = n1.anterior;
 		return l1;
 	}
 
@@ -362,7 +451,7 @@ public class Lista < T > implements Iterable < T >
 	public Lista < T > copia ()
 	{
 		int cont;//Counter
-		Lista l1 = new Lista ();
+		Lista <T> l1 = new Lista <T> ();
 		Nodo n1 = this.cabeza;
 		Nodo n2 = l1.cabeza;
 		n2 = n1;
@@ -380,51 +469,45 @@ public class Lista < T > implements Iterable < T >
 	public String toString ()
 	{
 		String lst = "";
-		Nodo n1 = this.cabeza;
+		if(this.cabeza != null)
+			lst += this.get(0).toString ();
 		int cont;
-		if (!(this.cabeza == this.ultimo && this.ultimo == null))
-		{				//Two '&&' cause if the head doesn't point to the tail we have nothing to do
-			for (cont = 0; cont < (this.longitud - 1); cont++)
+		if ( this.cabeza.siguiente != null )
+		{
+			lst += ",";
+			for (cont = 1; cont <= (this.getLongitud() - 2) ; cont++)
 			{
-				lst += n1.elemento.toString () + ",";
-				n1 = n1.siguiente;
+				lst += this.get( cont ).toString () + ",";
 			}
-			lst += n1.siguiente;
+			lst += get( cont ).toString() + ",";
+			lst += get( cont + 1 ).toString();
 		}
-		else
-			return "[]";
+		return lst;
 	}
 
 	/**
 	*Method to check if two objects are the same, this case will be if two list are the same node by node
 	*@return eqls
 	*/
-	@Override public boolean equals (Object ob)
+	@Override public boolean equals (Object objeto)
 	{
-		Nodo n1 = this.cabeza;
-		boolean eqls = true;	//eqls stands for equals
-		if (ob.getClass() == this.getClass())
-		{				//Here we compare the class of our list and ob
-			Lista lob = (Lista)ob;
-			Nodo n2 = lob.cabeza;	//If ob is a list we create the List l1 and then the node n2 wich is the head of ob
-			while (eqls)
-			{			//Here we will compare every item of both list
-				if (n1.elemento.equals (n2.elemento) == false)
-					eqls = false;
-				else
-				{
-					if (n1.siguiente != null && n2.siguiente != null)
-					{
-						n1 = n1.siguiente;
-						n2 = n2.siguiente;
-					}
-					else
-						return eqls;
-				}
-			}
-		}
-		return eqls;
-	  }
+		if (objeto == null || getClass() != objeto.getClass())
+			return false;
+	        @SuppressWarnings("unchecked")
+		Lista<T> lista = (Lista<T>)objeto;
+		if( getLongitud() != lista.getLongitud() )
+	        	return false;
+	        Nodo esta = cabeza;
+	        Nodo aquella = lista.cabeza;
+	        while(esta != null && aquella != null)
+		{
+	        	if(!(esta.elemento.equals(aquella.elemento)))
+				return false;
+			esta = esta.siguiente;
+			aquella = aquella.siguiente;
+	        }
+	        return true;
+	}
 
 	 /**
 	 *Method to return a Iterator that we already implement before
@@ -435,14 +518,48 @@ public class Lista < T > implements Iterable < T >
 		return I1;
 	}
 
-	/**Main method*/
-	public void main (Integer args[])
+	/**
+        * Fuction to get the index of an element
+	*/
+	public int getindiceElemento (T t)
 	{
-		Integer[] prueba = new Integer[10];
+		Nodo n1 = this.cabeza;
 		int cont;
-		for (cont = 0; cont < prueba.length && cont < args.length; cont++)
-			prueba[cont] = args[cont];
-		Lista l1 = new Lista (prueba);
-	 }
+		if( contiene( t ) )
+			for(cont = 0; cont < getLongitud(); cont ++)
+			{
+				if(n1.elemento == t)
+			                return cont;
+			        n1 = n1.siguiente;
+	                }
+		return -1;
+	}
+
+    /**
+	 *Main method
+	 */
+	public static void main (String[] args)
+	{
+		Lista<Integer> a1 = new Lista<Integer>();
+		a1.agregaInicio(0);
+		a1.agregaInicio(1);
+		a1.agregaInicio(2);
+		a1.agregaInicio(3);
+                a1.agregaFinal(1);
+                a1.agregaFinal(2);
+                a1.agregaFinal(3);
+		System.out.println( a1.toString() );
+		System.out.println( a1.getLongitud() );
+		a1.elimina(3);
+		a1.elimina(0);
+		System.out.println( a1.toString() );
+		System.out.println( a1.getLongitud() );
+		a1.inserta (5, 5);
+		a1.inserta (0, 0);
+		a1.inserta (6, 6);
+		System.out.println( a1.toString() );
+		System.out.println( a1.getLongitud() );
+	}
+
 }
 

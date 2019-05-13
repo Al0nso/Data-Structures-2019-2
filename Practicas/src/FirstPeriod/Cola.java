@@ -1,270 +1,203 @@
 package FirstPeriod;
-/**
-*Practica N.3 sobre Pilas y Colas
-*@author Claudia Osorio
-*@author Alonso Amayo
-*@version 2
-*@date 03.04.19
-*/
 import java.util.NoSuchElementException;
 import java.util.Iterator;
+/**
+* Practica N.3 sobre Pilas y Colas
+* @author Alonso Amayo
+* @version 3
+* @date 13.05.19
+* status: online
+* javac -d Practicas/build/ Practicas/src/FirstPeriod/Cola.java Practicas/src/FirstPeriod/Lista.java
+*/
 
 /**
  * Implementación de colas.
  */
 public class Cola<T> implements Iterable<T>{
 
-    // 'class to representate nodes
-     private class Nodo{
-     /**Attributes of the node */
-     public T elemento;
-     public Nodo siguiente;
-     public Nodo anterior;
+	/**Attributes*/
+	protected Lista<T> l1;
+	protected T next; //The next element
 
-      public Nodo (T elemento){
-       this.elemento = elemento;
-      }
-
-      public T getElemento() {
-       return elemento;
-      }
-
-      public void setElemento(T ele) {
-       this.elemento = ele;
-      }
-
-      public Nodo getSiguiente() {
-       return siguiente;
-      }
-
-        public void setSiguiente(Nodo sig) {
-            this.siguiente = sig;
-        }
-
-        public Nodo getAnterior(){
-          return anterior;
-        }
-
-        public void setAnterior(Nodo ant){
-          this.anterior = ant;
-        }
-    }
-
-	//Atributos de la lista
-    private Nodo cabeza;
-    private Nodo ultimo;
-    private int longitud;
-
-    /**
-     *constructor that initializes the queue
-     *we put -1 to indicate that the queue is empty
-     */
-     public Cola(){
-      cabeza = null;
-      ultimo = null;
-      longitud = -1;
-	 }
-
-
-    private class Seris{
-     //Atributos de la lista
-     public T elemento;
-     public Nodo cabeza;
-     public Nodo ultimo;
-     public int longitud;
-
-	     public Seris(T elemento){
-    this.elemento = elemento;
-	   }
-	}
-	//Constructor con listas
-     public Cola(Lista<T> l){
-	 /**int i;
-	  *Iterador it = l.iterator();
-     while(it.hasNext()){
-     T ele  = it.next();
-     this.longitud = l.getLongitud();
-     }*/
-     Lista <T> n2 = new Lista<>();
-     this.longitud = n2.getLongitud();
-     }
-
-    //Constructor con arreglos
-    public Cola(T[] arreglo){
-	int i;
-	Nodo n1 = new Nodo (arreglo[0]);
-	this.cabeza = n1;
-	n1.anterior = null;
-	for ( i = 1; i < arreglo.length; i++)
-	        mete(arreglo[i]);
-        this.longitud = i;}
-
-    /**
-    *Este método nos dice si la cola esta vacía
-    *@return True o False
-    **/
-    public boolean esVacia(){
-        if(cabeza == null)
-		return true;
-	else
-		return false; //Check
-    }
-
-    /**
-    *Este método nos muestra el siguiente elemento a salir
-    *@return T siguiente elemento
-    */
-    public T mira(){
-    if(esVacia()){
-    	System.out.println("No hay nada aquí");
-        }
-    return cabeza.elemento;
-    }
-
-    /**
-    *Este método saca el siguiente elemento en cola
-    *@return T
-    */
-    public T saca(){
-	Nodo n1 = this.cabeza;
-	Nodo n2 = n1.siguiente.siguiente;
-	this.cabeza = this.cabeza.siguiente;
-	this.cabeza.siguiente = n2;
-	return n1.elemento;
-    }
-
-    /**
-    *Este método agrega elementos a la cola
-    *@param T
-    */
-    public void mete(T t){
-        if(t == null)
+	// Interator class of our list
+	private class Iterador implements Iterator < T >
 	{
-        	throw new IllegalArgumentException();
-      	}
-	Nodo n1 = new Nodo (t);
-	if( esVacia() )
-	{
-		cabeza=ultimo=n1;
-	}
-	else
-	{
-		n1.siguiente = null;
-		this.ultimo.siguiente = n1;
-		this.ultimo = n1;
-		this.longitud++;
-}
+
+		public Iterator<T> itr;
+
+		 /**
+	          *Constructor of a new Iterator
+	          */
+		public Iterador ()
+		{
+			itr = l1.iterator();
+		}
+
+		 /**
+		 *Method to know if the list have next node
+	 	 *@return true/false
+		 */
+		@Override public boolean hasNext ()
+		{
+			return itr.hasNext();
+		}
+
+		 /**
+		 *Method to return next node of our list
+		 *If the list don't have next node we will return null
+		 *@return temp
+		 */
+		@Override public T next ()
+		{
+
+			if ( hasNext () )
+			{
+				T elemnt = itr.next();
+				return elemnt;
+			}
+			return null;
+		}
 	}
 
+	public Cola()
+	{
+		Lista<T> l1 = new Lista<T>();
+		this.l1 = l1;
+		this.next = null;
+	}
+
+	public Cola(Lista<T> l)
+	{
+		this.l1 = l;
+		this.next = this.l1.eliminaPrimero();
+	}
+
+	public Cola(T[] arreglo)
+	{
+		Lista<T> l1 = new Lista<T>(arreglo);
+		this.l1 = l1;
+		this.next = this.l1.eliminaPrimero();
+	}
+
+	public boolean esVacia()
+	{
+		return this.next == null;
+	}
+
+	public T mira()
+	{
+		try
+		{
+			if(this.next != null)
+				return this.next;
+			else
+				if(this.l1.getPrimero() != null)
+				{
+					this.next = l1.eliminaPrimero();
+					return this.next;
+				}
+				else
+				return null;
+		}
+		catch(NoSuchElementException e)
+		{
+			System.out.println("ERROR at Cola.mira, exception " + e);
+		}
+		return null;
+	}
+
+	public T saca()
+	{
+		try
+                {
+			T elemnt;
+			if(this.next != null)
+				elemnt =  this.next;
+			else
+                        	elemnt =  this.l1.eliminaPrimero();
+			this.next = this.l1.eliminaPrimero();
+                        return elemnt;
+                }
+                catch(NoSuchElementException e)
+                {
+                        System.out.println("ERROR at Cola.mira, exception " + e);
+                }
+		return null;
+	}
+
+	public void mete(T t)
+	{
+		this.l1.agregaFinal(t);
+	}
+
+	@Override
+	public String toString()
+	{
+		String str = "";
+		if(this.next != null)
+			str += this.next + "\n";
+		Iterator<T> itr = this.iterator();
+		while( itr.hasNext() )
+		{
+			str +=  itr.next().toString() + "\n";
+		}
+		return str;
+	}
+
+	@Override
+	public boolean equals(Object objeto )
+	{
+		if (objeto == null || this.getClass() != objeto.getClass())
+                        return false;
+                @SuppressWarnings("unchecked")
+                Cola<T> cla = (Cola<T>)objeto;
+                Iterator<T> itr1 = cla.iterator();
+		Iterator<T> itr = this.iterator();
+                while( itr1.hasNext() && itr.hasNext() )
+                {
+                        if( itr.next().equals( itr1.next() ) )
+                                return false;
+                }
+                return true;
+	}
+
+	@Override
+	public Iterator<T> iterator()
+	{
+		Iterator<T> I1 = new Iterador();
+                return I1;
+	}
 
 	/**
-	*Este método convierte la cola en un String que separa con ', '
-	*Sí es vacía entonces se devuelve []
-	*/
-	@Override
-    public String toString(){
-	String lst = "";
-		Nodo n1 = this.cabeza;
-		int cont;
-		if (!(this.cabeza == this.ultimo && this.ultimo == null))
-		{				//Two '&&' cause if the head doesn't point to the tail we have nothing to do
-			for (cont = 0; cont < (this.longitud - 1); cont++)
-			{
-				lst += n1.elemento.toString () + ", ";
-				n1 = n1.siguiente;
-			}
-			lst += n1.siguiente;
-		}
-		
-			return "[]";
-    }
+        * Main method
+        */
+        public static void main (String[] args)
+        {
+                Cola<Integer> a1 = new Cola<Integer>();
+                a1.mete(0);
+                a1.mete(1);
+		a1.mete(2);
+		a1.mete(3);
+		a1.mete(4);
+		a1.mete(5);
+		a1.mete(6);
+                System.out.println( "To string \n" + a1.toString() );
+                System.out.println( "Saca: " + a1.saca() );
+		System.out.println( "Mira: " + a1.mira() );
+                System.out.println( "Saca: " + a1.saca() );
+		System.out.println( "Saca: " + a1.saca() );
+                System.out.println( "To string \n" + a1.toString() );
+  		a1.mete(7);
+                a1.mete(8);
+                a1.mete(9);
+                a1.mete(10);
+                a1.mete(11);
+                a1.mete(12);
+		System.out.println( "To string \n" + a1.toString() );
+		System.out.println( "Saca: " + a1.saca() );
+		for(int cont = 0; cont < 8 ; cont++)
+			System.out.println( "Saca: " + a1.saca() );
+		System.out.println( "Mira: " + a1.mira() );
+        }
 
-
-    /**
-    * Método para verificar si dos objetos son iguales, este caso será si dos colas son la misma
-    *@return eqls
-    */
-    @Override
-    public boolean equals(Object o){
-	Nodo n1 = this.cabeza;
-		boolean eqls = true;	//eqls stands for equals
-		if (o.getClass() == this.getClass())
-		{				//Here we compare the class of our list and ob
-			Cola<T> lob = new Cola<T>();
-			Nodo n2 = lob.cabeza;	//If ob is a list we create the List l1 and then the node n2 wich is the head of ob
-			while (eqls)
-			{			//Here we will compare every item of both list
-				if (n1.elemento.equals (n2.elemento) == false)
-					eqls = false;
-				else
-				{
-					if (n1.siguiente != null && n2.siguiente != null)
-					{
-						n1 = n1.siguiente;
-						n2 = n2.siguiente;
-					}
-					else
-						return eqls;
-				}
-			}
-		}
-		return eqls;
-    }
-
-    //Clase para iterar nuestra cola
-     private class Iterador implements Iterator<T>{
-     public Nodo siguiente;
-     public Nodo anterior;
-
-     // Iterador que empieza
-     public Iterador(){
-     anterior = null;
-     siguiente = cabeza;
-     }
-
-     @Override
-     public boolean hasNext(){
-     return siguiente != null;
-     }
-
-     @Override
-     public T next(){
-     if(!hasNext()){
-     throw new NoSuchElementException();
-     }
-     this.anterior = this.siguiente; // this.siguiente = this.anterior.siguiente;
-     return anterior.elemento;
-     }
-
-     public void end() {
-     anterior = ultimo;
-     siguiente = null;
-     }
-
-     public void start() {
-     anterior = null;
-     siguiente = cabeza;
-     }
-    }
-
-    /**
-     *Método para implementar un iterador que ya usamos antes
-     */
-     @Override public Iterator<T> iterator(){
-	 return new Iterador();
-     }
-
-    /**
-     *Main method
-     */
-     public static void main (String[] args){   
-     Cola<Integer> A2 = new Cola<>();   
-     /**String[] prueba = new String[10];
-     *Integer cont;
-     *for (cont = 1; cont < 14; cont++){
-     *System.out.println(cont);}
-     *Cola<Integer> A2 = new Cola<>();  
-     *A2.mete(cont);   
-    */}
 }
-
